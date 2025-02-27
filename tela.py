@@ -8,7 +8,7 @@ class CRUDApp:
         self.root.title("CRUD USUARIOS")
 
 #ccriacao de widgets 
-        self.create_widgets()        
+        self.create_widgets  
 
     def create_widgets(self):
         #labels
@@ -44,9 +44,62 @@ class CRUDApp:
         tk.Button(self.root,text="listar usuario",command=self.create_user).grid(row=6,column=1,umnspan=1)
         tk.Button(self.root,text="alterar usuario",command=self.create_user).grid(row=7,column=0,umnspan=1)
         tk.Button(self.root,text="excluir usuario",command=self.create_user).grid(row=7,column=1,umnspan=1)
+    def create_user(self):
+        nome = self.nome_entry.get()
+        telefone = self.telefone_entry.get()
+        email = self.email_entry.get()
+        usuario = self.usuario_entry.get()
+        senha = self.senha_entry.get()
+        user_id = self.user_id_entry.get()
 
+        if  nome and telefone and email and usuario and senha:
+            self.nome_entry.delete(0,tk.END) 
+            self.telefone_entry.delete(0,tk.END)
+            self.email_entry.delete(0,tk.END)
+            self.usuario_entry.delete(0,tk.END)
+            self.senha_entry.delete(0,tk.END)
+            messagebox.showerror("sucesso","usuario criado com sucesso")
 
+        else:
+             messagebox.showerror("error","todos os  campos sao obrigatorios")
 
+    def read_users(self):
+        users = read_users()
+        self.text_area.delete(1.0,tk.END)
+        for user in users:
+            self.text_area.insert(tk.END,f"id: {user[0]},nome:{user[1]},telfone:{user[2]},emAIL:{user[3]}\n")
+    
+    def  update_user(self):
+        user_id = self.user_id_entry.get() 
+        nome = self.nome_entry.get()    
+        telefone = self.telefone_entry.get()    
+        email = self.email_entry.get()    
+        usuario = self.usuario_entry.get()
+        senha = self.senha_entry.get()
+        if  user_id and nome and telefone and email and usuario and senha:
+            update_user(user_id,nome,telefone,email,usuario,senha)
+            self.nome_entry.delete(0,tk.END) 
+            self.telefone_entry.delete(0,tk.END)
+            self.email_entry.delete(0,tk.END)
+            self.usuario_entry.delete(0,tk.END)
+            self.senha_entry.delete(0,tk.END)
+            messagebox.showerror("sucesso","usuario alteerado com sucesso")
 
+        else:
+             messagebox.showerror("error","todos os  campos sao obrigatorios")
+               
 
-     
+    def delete_user(self):
+        user_id = self.user_id_entry.get()  
+        if user_id:
+            delete_user(user_id)
+            self.user_id_entry.delete(0,tk.END)
+            messagebox.showerror("sucesso","ususario exluido com sucesso!")
+        else:
+                 messagebox.showerror("error","id deususario e necessario!")
+
+if __name__ == "__main__":
+    root = tk.Tk
+    app = CRUDApp(root)
+    root.mainloop()
+           
