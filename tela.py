@@ -44,6 +44,8 @@ class CRUDApp:
         tk.Button(self.root,text="listar usuario",command=self.create_user).grid(row=6,column=1,columnspan=1)
         tk.Button(self.root,text="alterar usuario",command=self.create_user).grid(row=7,column=0,columnspan=1)
         tk.Button(self.root,text="excluir usuario",command=self.create_user).grid(row=7,column=1,columnspan=1)
+        self.text_area = tk.Text(self.root,heigth=10,witdh=80)
+        self.text_area.grid(row=10,column=0,cplomnspan=4)
 
     def create_user(self):
         nome = self.nome_entry.get()
